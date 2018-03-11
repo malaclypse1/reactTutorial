@@ -108,7 +108,10 @@ class Game extends React.Component {
     let status;
     if (winningSquares) {
       status = 'Winner: ' + current.squares[winningSquares[0]];
-    } else {
+    } else if (detectTie(current.squares)) {
+      status = 'Cat\'s Game (tie)';
+    }
+    else {
       status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
     }
     
@@ -163,4 +166,11 @@ function calculateWinner(squares) {
     }
   }
   return null;
+}
+
+function detectTie(squares) {
+  if (squares.includes(null)) {
+    return false;
+  }
+  return true;
 }
